@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane prefHeight="273.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sma11new.controller.DisclaimerController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="269.0" prefWidth="453.0" spacing="10.0">
+         <children>
+            <Pane prefHeight="267.0" prefWidth="451.0">
+               <children>
+                  <Button fx:id="cancelButton" layoutX="130.0" layoutY="230.0" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="63.0" text="取消" />
+                  <Button fx:id="confirmButton" layoutX="265.0" layoutY="230.0" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="63.0" text="同意" />
+                  <Label alignment="CENTER" layoutX="20.0" layoutY="10.0" prefHeight="24.0" prefWidth="418.0" text="本工具仅用于企业内部网络安全自查及授权项目" textAlignment="CENTER" textFill="#d71f0e">
+                     <font> <Font size="16.0" /> </font>
+                     <style> -fx-font-weight: bold; </style>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="19.0" layoutY="39.0" prefHeight="24.0" prefWidth="418.0" text="请勿非法使用，否则后果自负！" textAlignment="CENTER" textFill="#d71f0e">
+                     <font> <Font size="16.0" /> </font>
+                     <style> -fx-font-weight: bold; </style>
+                  </Label>
+                  <TextArea editable="false" layoutX="19.0" layoutY="75.0" prefHeight="147.0" prefWidth="418.0" text="                           【免责声明&amp;使用许可】&#10;&#10;1、本工具漏洞均来自互联网公开，仅用于合法授权的企业安全建设行为及经授权的渗透测试项目。&#10;&#10;2、请在使用本工具进行渗透测试前，必须获得直接测试目标单位的书面授权。非经被测试目标单位授权，禁止使用本工具实施任何未经许可的测试行为。&#10;&#10;3、用户通过使用本软件所获取的任何资产或漏洞等信息，必须严格按照测试目标单位的要求予以处理，未经许可不得对信息另行加工、对外传输提供及非法公开。&#10;&#10;4、如用户在使用本工具的过程中存在任何非法行为，需自行承担相应后果，我们将不承担任何法律及连带责任。&#10;&#10;5、如未取得被测试目标单位的授权或随意复制、分发及传播该工具致使本工具被他人恶意使用而导致的违法责任，用户应依法承担相应责任。&#10;&#10;6、在使用本工具前，请务必审慎阅读、充分理解各条款内容，并接受本协议所有条款，否则请勿使用。用户的使用行为或以其他任何明示或者默示方式表示接受本协议的，即视为已阅读并同意本协议的约束。" wrapText="true" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</Pane>
