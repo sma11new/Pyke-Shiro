@@ -41,7 +41,7 @@
 
         <TabPane layoutY="319.0" prefHeight="394.0" prefWidth="1030.0">
             <tabs>
-                <Tab text="基本信息">
+                <Tab text="基本信息" closable="false">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="640.0" prefWidth="841.0">
                             <children>
@@ -53,7 +53,7 @@
                     </content>
                 </Tab>
 
-                <Tab text="命令执行">
+                <Tab text="命令执行" closable="false">
                     <content>
                         <AnchorPane fx:id="execCmdPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
                                     prefWidth="200.0">
@@ -82,7 +82,7 @@
                     </content>
                 </Tab>
 
-                <Tab text="内存马">
+                <Tab text="内存马" closable="false">
                     <content>
                         <AnchorPane fx:id="memShellPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
                                     prefWidth="200.0">
