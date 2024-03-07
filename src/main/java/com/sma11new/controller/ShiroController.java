@@ -11,8 +11,6 @@ import javafx.scene.control.CheckBox;
 import com.sma11new.exp.shiro.ShiroAttack;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -22,7 +20,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Window;
 
-import java.io.IOException;
 import java.net.Authenticator;
 import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
@@ -30,7 +27,6 @@ import java.net.Proxy;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.sma11new.exp.shiro.attack.memShell.MemBytes.MEM_MAP;
@@ -111,8 +107,6 @@ public class ShiroController {
     private volatile boolean stopCheckAllChains = false;
     // 代理相关信息保存
     public static Map<String, Object> proxySettingInfo = new HashMap();
-    // dnslog相关信息保存
-    public static Map<String, Object> dnslogSettingInfo = new HashMap();
 
 
     @FXML
@@ -223,6 +217,11 @@ public class ShiroController {
 
                 Thread thread = new Thread(() -> {
                     for (String key : allKeys) {
+                        // 配置复杂数据
+                        if (complexReqCheckBox.isSelected()) {
+                            ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
+                                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                        }
                         if (stopCheckAllKeys) { // 检查是否应该停止
                             stopCheckAllKeys = false; // 复原
                             Platform.runLater(() ->
@@ -323,10 +322,15 @@ public class ShiroController {
         Thread thread = new Thread(() -> {
             for (String echo : echoChoiceBox.getItems()) {
                 for (String chain : chainChoiceBox.getItems()) {
+                    // 配置复杂数据
+                    if (complexReqCheckBox.isSelected()) {
+                        ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
+                                complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                    }
                     if (stopCheckAllChains) { // 检查是否应该停止
                         stopCheckAllChains = false;  // 复原
                         Platform.runLater(() ->
-                                basicInfo.appendText("已停止检测所有利用链及回显\n")
+                            basicInfo.appendText("已停止检测所有利用链及回显\n")
                         );
                         return; // 退出线程
                     }
@@ -351,12 +355,12 @@ public class ShiroController {
                     }
                 }
             }
-            Platform.runLater(() -> basicInfo.appendText("[-]  未发现利用链及回显\n"));
+            if (basicInfo.getText().contains("发现利用链及回显"))
+                Platform.runLater(() -> basicInfo.appendText("[+++]  发现利用链及回显，自行选择使用\n"));
+            else Platform.runLater(() -> basicInfo.appendText("[-]  未发现利用链及回显\n"));
         });
         thread.start(); // 开始线程，不再调用join，以避免阻塞UI线程。
     }
-
-
 
     @FXML
     private void execCmd() {

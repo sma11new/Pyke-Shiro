@@ -7,7 +7,7 @@
     <groupId>com.sma11new</groupId>
     <artifactId>Pyke-Shiro</artifactId>
     <packaging>jar</packaging>
-    <version>0.1</version>
+    <version>0.2</version>
     <name>Pyke-Shiro</name>
 
     <properties>

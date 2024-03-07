@@ -23,7 +23,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ShiroAttack {
-    private static String target;
     private static HashMap<String, String> headers = new HashMap();
     private static int flagCount = 0;
     public static boolean AES_GCM_MODE = false;
