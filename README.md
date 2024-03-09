@@ -1,4 +1,4 @@
-## Pyke-Shieo：Pyke衍生Shiro反序列化利用工具
+## Pyke-Shieo：复杂请求下的Shiro反序列化利用工具
 
 由于其他Shiro工具对复杂请求支持比较差，因此在ShiroAttack基础上编写该Shiro工具，并且从Pyke中拆分出来作为单独工具使用。
 
