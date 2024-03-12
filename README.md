@@ -29,8 +29,7 @@ mvn package assembly:single
 复杂请求可以是GET或POST，所有请求信息会被携带，可指定https，同时可选择是否保留原始数据包中的Cookie内容
 
 
-
-
+![image_2024-03-12_15-38-59](https://github.com/sma11new/Pyke-Shiro/assets/53944964/d16a17a4-d286-48dd-908e-ac9ea7dc9f9e)
 
 
 
