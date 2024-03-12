@@ -26,13 +26,13 @@ public class HttpMsgUtil {
                 "Cookie: JSESSIONID=2591C485EF42C08BF1C41F7A2D020E8C\n" +
                 "Upgrade-Insecure-Requests: 1\n\n\n";
 
-        Map<String, Object> parsedRequest = parseRawHttpRequest(rawRequest, false);
+        Map<String, Object> parsedRequest = parseRawHttpRequest(rawRequest, false, true);
         System.out.println("URL: " + parsedRequest.get("url"));
         System.out.println("Headers: " + parsedRequest.get("headers"));
         System.out.println("Data: " + parsedRequest.get("data"));
     }
 
-    public static Map<String, Object> parseRawHttpRequest(String rawRequest, boolean https) {
+    public static Map<String, Object> parseRawHttpRequest(String rawRequest, boolean https, boolean keepCookie) {
         Map<String, Object> result = new HashMap<>();
         String[] requestParts = rawRequest.split("\n\n", 2); // Split headers and body
 
@@ -62,6 +62,13 @@ public class HttpMsgUtil {
                 String[] keyValue = part.split("=", 2);
                 data.put(keyValue[0], keyValue[1]);
             }
+        }
+
+        if (!keepCookie) {
+            headers.put("Cookie", null);
+        } else {
+            if (!headers.containsKey("Cookie"))
+                headers.put("Cookie", null);
         }
 
         result.put("method", method);

