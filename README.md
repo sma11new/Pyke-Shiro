@@ -52,3 +52,9 @@ mvn package assembly:single
 欢迎提issues完善工具。
 
 参考：https://github.com/SummerSec/ShiroAttack2
+
+## 免责声明
+
+本工具仅用于内部网络安全自查及授权项目，请勿非法使用，否则后果自负，使用前请认真阅读相关协议。
+
+![image](https://github.com/sma11new/Pyke-Shiro/assets/53944964/e1f4d4a1-ec26-4b20-8882-209799676b47)
