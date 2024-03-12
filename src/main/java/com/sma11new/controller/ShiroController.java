@@ -37,6 +37,8 @@ public class ShiroController {
     @FXML
     private Label proxyStatusLabel;
     @FXML
+    private MenuItem timeoutSetupBtn;
+    @FXML
     public TextArea basicInfo;
 
     @FXML
@@ -74,6 +76,8 @@ public class ShiroController {
 
     @FXML
     public CheckBox httpsReqCheckBox;
+    @FXML
+    public CheckBox keepCookieCheckBox;
 
     @FXML
     private TextArea complexReqTextArea;
@@ -156,6 +160,7 @@ public class ShiroController {
         complexReqCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             complexReqTextArea.setDisable(!newValue);
             httpsReqCheckBox.setDisable(!newValue);
+            keepCookieCheckBox.setDisable(!newValue);
             urlInput.setDisable(newValue);
             ShiroAttack.complexReq = newValue;
         });
@@ -177,7 +182,7 @@ public class ShiroController {
                     if (complexReqCheckBox.isSelected()) {
                         ShiroAttack.complexReq = true;
                         ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                                complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                                complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
                         tmpUrl = (String) ShiroAttack.reqMsg.get("url");
                     } else {
                         tmpUrl = url;
@@ -211,7 +216,7 @@ public class ShiroController {
                 if (complexReqCheckBox.isSelected()) {
                     ShiroAttack.complexReq = true;
                     ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                            complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                            complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
                     tmpUrl = (String) ShiroAttack.reqMsg.get("url");
                 } else tmpUrl = url;
 
@@ -220,7 +225,7 @@ public class ShiroController {
                         // 配置复杂数据
                         if (complexReqCheckBox.isSelected()) {
                             ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
                         }
                         if (stopCheckAllKeys) { // 检查是否应该停止
                             stopCheckAllKeys = false; // 复原
@@ -280,7 +285,7 @@ public class ShiroController {
             if (complexReqCheckBox.isSelected()) {
                 ShiroAttack.complexReq = true;
                 ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                        complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                        complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
                 url = (String) ShiroAttack.reqMsg.get("url");
             }
 
@@ -313,7 +318,7 @@ public class ShiroController {
         if (complexReqCheckBox.isSelected()) {
             ShiroAttack.complexReq = true;
             ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
             tmpUrl = (String) ShiroAttack.reqMsg.get("url");
         } else {
             tmpUrl = url;
@@ -325,7 +330,7 @@ public class ShiroController {
                     // 配置复杂数据
                     if (complexReqCheckBox.isSelected()) {
                         ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                                complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                                complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
                     }
                     if (stopCheckAllChains) { // 检查是否应该停止
                         stopCheckAllChains = false;  // 复原
@@ -375,7 +380,7 @@ public class ShiroController {
         if (complexReqCheckBox.isSelected()) {
             ShiroAttack.complexReq = true;
             ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
             tmpUrl = (String) ShiroAttack.reqMsg.get("url");
         } else {
             tmpUrl = url;
@@ -403,7 +408,7 @@ public class ShiroController {
         if (complexReqCheckBox.isSelected()) {
             ShiroAttack.complexReq = true;
             ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                    complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
             tmpUrl = (String) ShiroAttack.reqMsg.get("url");
         } else tmpUrl = url;
 
@@ -447,7 +452,7 @@ public class ShiroController {
             if (complexReqCheckBox.isSelected()) {
                 // 在子线程中进行复杂请求的处理
                 ShiroAttack.reqMsg = HttpMsgUtil.parseRawHttpRequest(
-                        complexReqTextArea.getText(), httpsReqCheckBox.isSelected());
+                        complexReqTextArea.getText(), httpsReqCheckBox.isSelected(), keepCookieCheckBox.isSelected());
                 url = (String) ShiroAttack.reqMsg.get("url");
             }
             // 检测是否是Shiro框架
@@ -672,6 +677,51 @@ public class ShiroController {
             inputDialog.getDialogPane().setContent(proxyGridPane);
             inputDialog.showAndWait();
         });
+
+        // 超时设置
+        this.timeoutSetupBtn.setOnAction((event -> {
+            Alert inputDialog = new Alert(Alert.AlertType.NONE);
+            Window window = inputDialog.getDialogPane().getScene().getWindow();
+            window.setOnCloseRequest((e) -> {
+                window.hide();
+            });
+            inputDialog.setTitle("超时设置");
+            GridPane timeoutGridPane = new GridPane();
+            timeoutGridPane.setVgap(15.0D);
+            timeoutGridPane.setPadding(new Insets(20.0D, 20.0D, 0.0D, 10.0D));
+            Label connectTimeoutLabel = new Label("请求超时/s：");
+            TextField connectTimeout = new TextField("" + Config.CONNECT_TIME_OUT);
+            Label readTimeoutLabel = new Label("读取超时/s：");
+            TextField readTimeout = new TextField("" + Config.READ_TIME_OUT);
+            Button restoreDefaultBtn = new Button("恢复默认");
+            Button saveBtn = new Button("保存设置");
+
+            saveBtn.setOnAction((e) -> {
+                Config.CONNECT_TIME_OUT = Integer.parseInt(connectTimeout.getText().trim());
+                Config.READ_TIME_OUT = Integer.parseInt(readTimeout.getText().trim());
+                inputDialog.getDialogPane().getScene().getWindow().hide();
+
+            });
+
+            restoreDefaultBtn.setOnAction((e) -> {
+                connectTimeout.setText("5");
+                readTimeout.setText("10");
+            });
+
+            timeoutGridPane.add(connectTimeoutLabel, 0, 1);
+            timeoutGridPane.add(connectTimeout, 1, 1);
+            timeoutGridPane.add(readTimeoutLabel, 0, 2);
+            timeoutGridPane.add(readTimeout, 1, 2);
+            HBox buttonBox = new HBox();
+            buttonBox.setSpacing(20.0D);
+            buttonBox.setAlignment(Pos.CENTER);
+            buttonBox.getChildren().add(restoreDefaultBtn);
+            buttonBox.getChildren().add(saveBtn);
+            GridPane.setColumnSpan(buttonBox, 2);
+            timeoutGridPane.add(buttonBox, 0, 3);
+            inputDialog.getDialogPane().setContent(timeoutGridPane);
+            inputDialog.showAndWait();
+        }));
     }
 
     public void setProxyStatusLabel(String value) {

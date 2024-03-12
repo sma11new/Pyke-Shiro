@@ -1,5 +1,6 @@
 package com.sma11new.utils;
 
+import com.sma11new.config.Config;
 import com.sma11new.controller.ShiroController;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -147,8 +148,8 @@ public class HttpUtils {
         conn.setRequestProperty("Accept-Language","zh-CN,zh;q=0.9");
         conn.setRequestProperty("Connection","close");
 
-        conn.setConnectTimeout(5000);
-        conn.setReadTimeout(10000);
+        conn.setConnectTimeout(Config.CONNECT_TIME_OUT * 1000);
+        conn.setReadTimeout(Config.READ_TIME_OUT * 1000);
         conn.setDoOutput(true);
         conn.setDoInput(true);
         conn.setUseCaches(false);
@@ -170,19 +171,15 @@ public class HttpUtils {
                 encoding = "UTF-8";
             }
             resultString = byteArrayOutputStream.toString(encoding);
-        // 修复在s2-045、s2-046的畸形请求中，无法获取请求内容的问题
-        } catch (SocketException socketException) {
+        // 修复在畸形请求中，无法获取请求内容的问题
+        } catch (Exception e) {
             try {
                 resultString = byteArrayOutputStream.toString(encoding);
             } catch (Exception exception) {
                 resultString = exception.getMessage();
                 exception.printStackTrace();
             }
-        } catch (IOException var6) {
-            resultString = var6.getMessage();
-            var6.printStackTrace();
         }
-
         return resultString;
     }
 }

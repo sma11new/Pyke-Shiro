@@ -1,119 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxWidth="1030.0" prefHeight="713.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sma11new.controller.ShiroController">
+<AnchorPane maxWidth="1117.0" prefHeight="773.0" prefWidth="1117.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sma11new.controller.ShiroController">
     <children>
-        <MenuBar layoutY="1.0" prefHeight="32.0" prefWidth="1030.0" VBox.vgrow="ALWAYS">
+        <MenuBar layoutX="-1.0" layoutY="1.0" prefHeight="32.0" prefWidth="1117.0" VBox.vgrow="ALWAYS">
             <menus>
                 <Menu mnemonicParsing="false" text="设置">
                     <items>
-                        <MenuItem fx:id="proxySetupBtn" mnemonicParsing="false" text="代理"/>
+                        <MenuItem fx:id="proxySetupBtn" mnemonicParsing="false" text="代理" />
+                    </items>
+                    <items>
+                        <MenuItem fx:id="timeoutSetupBtn" mnemonicParsing="false" text="超时" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="关于">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#about" text="关于"/>
+                        <MenuItem mnemonicParsing="false" onAction="#about" text="关于" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="注意事项">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#disclaimer" text="注意事项"/>
+                        <MenuItem mnemonicParsing="false" onAction="#disclaimer" text="注意事项" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-        <TextField fx:id="urlInput" layoutX="69.0" layoutY="45.0" prefHeight="30.0" prefWidth="456.0"
-                   promptText="http://127.0.0.1">
+        <TextField fx:id="urlInput" layoutX="69.0" layoutY="45.0" prefHeight="30.0" prefWidth="432.0" promptText="http://127.0.0.1">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </TextField>
         <Text layoutX="27.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="地址">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Text>
 
 
-        <TabPane layoutY="319.0" prefHeight="394.0" prefWidth="1030.0">
+        <TabPane layoutX="7.0" layoutY="344.0" prefHeight="431.0" prefWidth="1110.0">
             <tabs>
-                <Tab text="基本信息" closable="false">
+                <Tab closable="false" text="基本信息">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="640.0" prefWidth="841.0">
                             <children>
-                                <TextArea fx:id="basicInfo" layoutX="-1.0" layoutY="-2.0" prefHeight="337.0"
-                                          prefWidth="1007.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="5.0"
-                                          AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="10.0"/>
+                                <TextArea fx:id="basicInfo" layoutX="5.0" layoutY="-2.0" prefHeight="381.0" prefWidth="1103.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="10.0" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
 
-                <Tab text="命令执行" closable="false">
+                <Tab closable="false" text="命令执行">
                     <content>
-                        <AnchorPane fx:id="execCmdPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                    prefWidth="200.0">
+                        <AnchorPane fx:id="execCmdPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TextField fx:id="cmdInput" layoutX="142.0" layoutY="5.0" prefHeight="30.0"
-                                           prefWidth="628.0" promptText="whoami" text="whoami">
+                                <TextField fx:id="cmdInput" layoutX="154.0" layoutY="5.0" prefHeight="30.0" prefWidth="628.0" promptText="whoami" text="whoami">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextArea fx:id="cmdOutput" layoutX="5.0" layoutY="41.0" prefHeight="312.0"
-                                          prefWidth="1028.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                                <TextArea fx:id="cmdOutput" layoutX="5.0" layoutY="41.0" prefHeight="349.0" prefWidth="1100.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </TextArea>
-                                <Text layoutX="93.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="命令">
+                                <Text layoutX="105.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="命令">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Text>
-                                <Button fx:id="execCmdBtn" layoutX="821.0" layoutY="3.0" onAction="#execCmd"
-                                        prefHeight="35.0" prefWidth="95.0" text="执行"/>
+                                <Button fx:id="execCmdBtn" layoutX="833.0" layoutY="3.0" onAction="#execCmd" prefHeight="35.0" prefWidth="95.0" text="执行" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
 
-                <Tab text="内存马" closable="false">
+                <Tab closable="false" text="内存马">
                     <content>
-                        <AnchorPane fx:id="memShellPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                    prefWidth="200.0">
+                        <AnchorPane fx:id="memShellPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TextArea fx:id="memShellInjectInfo" layoutY="38.0" prefHeight="304.0"
-                                          prefWidth="1028.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0"
-                                          AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="38.0">
+                                <TextArea fx:id="memShellInjectInfo" layoutY="38.0" prefHeight="352.0" prefWidth="1100.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="38.0">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </TextArea>
-                                <Text layoutX="44.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="类型">
+                                <Text layoutX="71.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="类型">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Text>
-                                <Button fx:id="memShellInjectBtn" layoutX="877.0" layoutY="2.0"
-                                        onAction="#injectMemShell" prefHeight="35.0" prefWidth="95.0" text="注入"/>
-                                <ChoiceBox fx:id="memShellChoiceBox" layoutX="89.0" layoutY="4.0" prefHeight="30.0"
-                                           prefWidth="245.0"/>
-                                <Text layoutX="383.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="路径">
+                                <Button fx:id="memShellInjectBtn" layoutX="904.0" layoutY="2.0" onAction="#injectMemShell" prefHeight="35.0" prefWidth="95.0" text="注入" />
+                                <ChoiceBox fx:id="memShellChoiceBox" layoutX="116.0" layoutY="4.0" prefHeight="30.0" prefWidth="245.0" />
+                                <Text layoutX="410.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="路径">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Text>
-                                <TextField fx:id="memShellPathInput" layoutX="426.0" layoutY="4.0" prefHeight="30.0"
-                                           prefWidth="219.0" promptText="/favicondemo1.ico" text="/favicondemo1.ico"/>
-                                <Text layoutX="679.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                                      text="默认密码：ikun123" wrappingWidth="154.0">
+                                <TextField fx:id="memShellPathInput" layoutX="453.0" layoutY="4.0" prefHeight="30.0" prefWidth="219.0" promptText="/favicondemo1.ico" text="/favicondemo1.ico" />
+                                <Text layoutX="706.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="默认密码：ikun123" wrappingWidth="154.0">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Text>
                             </children>
@@ -122,61 +111,48 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <TextField fx:id="cookieFlagInput" layoutX="626.0" layoutY="44.0" prefHeight="30.0" prefWidth="160.0"
-                   promptText="rememberMe" text="rememberMe">
+        <TextField fx:id="cookieFlagInput" layoutX="618.0" layoutY="44.0" prefHeight="30.0" prefWidth="143.0" promptText="rememberMe" text="rememberMe">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </TextField>
-        <TextArea fx:id="complexReqTextArea" disable="true" layoutX="19.0" layoutY="82.0" prefHeight="149.0"
-                  prefWidth="990.0"
-                  text="POST /doLogin HTTP/1.1&#10;Host: 192.168.11.100:8080&#10;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0&#10;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8&#10;Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&#10;Accept-Encoding: gzip, deflate&#10;Content-Type: application/x-www-form-urlencoded&#10;Content-Length: 30&#10;Origin: http://192.168.11.100:8080&#10;Connection: close&#10;Referer: http://192.168.11.100:8080/login;jsessionid=2591C485EF42C08BF1C41F7A2D020E8C&#10;Cookie: JSESSIONID=2591C485EF42C08BF1C41F7A2D020E8C&#10;Upgrade-Insecure-Requests: 1&#10;&#10;username=admin&amp;password=123456"/>
-        <CheckBox fx:id="complexReqCheckBox" layoutX="822.0" layoutY="48.0" mnemonicParsing="false" prefHeight="21.0"
-                  prefWidth="95.0" text="复杂请求"/>
-        <Text layoutX="563.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cookie">
+        <TextArea fx:id="complexReqTextArea" disable="true" layoutX="23.0" layoutY="82.0" prefHeight="176.0" prefWidth="1076.0" text="POST /doLogin HTTP/1.1&#10;Host: 192.168.11.100:8080&#10;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0&#10;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8&#10;Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&#10;Accept-Encoding: gzip, deflate&#10;Content-Type: application/x-www-form-urlencoded&#10;Content-Length: 30&#10;Origin: http://192.168.11.100:8080&#10;Connection: close&#10;Referer: http://192.168.11.100:8080/login;jsessionid=2591C485EF42C08BF1C41F7A2D020E8C&#10;Cookie: JSESSIONID=2591C485EF42C08BF1C41F7A2D020E8C&#10;Upgrade-Insecure-Requests: 1&#10;&#10;username=admin&amp;password=123456" />
+        <CheckBox fx:id="complexReqCheckBox" layoutX="786.0" layoutY="48.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="95.0" text="复杂请求" />
+        <Text layoutX="523.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cookie Flag">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Text>
-        <TextField fx:id="keyInput" layoutX="87.0" layoutY="243.0" prefHeight="30.0" prefWidth="307.0"
-                   promptText="kPH+bIxk5D2deZiIxcaaaA==" text="kPH+bIxk5D2deZiIxcaaaA=="/>
-        <Text layoutX="20.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="指定key">
+        <TextField fx:id="keyInput" layoutX="91.0" layoutY="267.0" prefHeight="30.0" prefWidth="307.0" promptText="kPH+bIxk5D2deZiIxcaaaA==" text="kPH+bIxk5D2deZiIxcaaaA==" />
+        <Text layoutX="24.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="指定key">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Text>
-        <Button fx:id="CheckCurrentKeyBtn" layoutX="580.0" layoutY="243.0" mnemonicParsing="false" onAction="#checkKey"
-                prefHeight="30.0" prefWidth="140.0" text="检测当前密钥"/>
-        <Button fx:id="enumAllKeysBtn" layoutX="740.0" layoutY="243.0" mnemonicParsing="false" onAction="#checkAllKeys"
-                prefHeight="30.0" prefWidth="135.0" text="爆破密钥"/>
-        <ChoiceBox fx:id="chainChoiceBox" layoutX="82.0" layoutY="282.0" prefHeight="30.0" prefWidth="275.0"/>
-        <Text layoutX="21.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="利用链">
+        <Button fx:id="CheckCurrentKeyBtn" layoutX="612.0" layoutY="267.0" mnemonicParsing="false" onAction="#checkKey" prefHeight="30.0" prefWidth="140.0" text="检测当前密钥" />
+        <Button fx:id="enumAllKeysBtn" layoutX="779.0" layoutY="267.0" mnemonicParsing="false" onAction="#checkAllKeys" prefHeight="30.0" prefWidth="135.0" text="爆破密钥" />
+        <ChoiceBox fx:id="chainChoiceBox" layoutX="86.0" layoutY="306.0" prefHeight="30.0" prefWidth="284.0" />
+        <Text layoutX="25.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="利用链">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Text>
-        <Text layoutX="375.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="回显">
+        <Text layoutX="395.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="回显">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Text>
-        <ChoiceBox fx:id="echoChoiceBox" layoutX="416.0" layoutY="281.0" prefHeight="30.0" prefWidth="143.0"/>
-        <CheckBox fx:id="AES_GCM_ModeCheckBox" layoutX="426.0" layoutY="248.0" mnemonicParsing="false" prefHeight="21.0"
-                  prefWidth="137.0" text="AES-GCM模式"/>
-        <Button fx:id="enumAllChainsBtn" layoutX="740.0" layoutY="281.0" mnemonicParsing="false"
-                onAction="#checkAllChains" prefHeight="30.0" prefWidth="135.0" text="爆破利用链"/>
-        <Button fx:id="CheckCurrentChainBtn" layoutX="580.0" layoutY="281.0" mnemonicParsing="false"
-                onAction="#checkChain" prefHeight="30.0" prefWidth="140.0" text="检测当前利用链"/>
-        <CheckBox fx:id="httpsReqCheckBox" disable="true" layoutX="933.0" layoutY="48.0" mnemonicParsing="false"
-                  prefHeight="21.0" prefWidth="74.0" text="https"/>
-        <Button fx:id="stopCheckAllKeysBtn" layoutX="892.0" layoutY="243.0" mnemonicParsing="false"
-                onAction="#stopCheckAllKeys" prefHeight="30.0" prefWidth="120.0" text="终止爆破"/>
-        <Button fx:id="stopCheckAllChainsBtn" layoutX="892.0" layoutY="281.0" mnemonicParsing="false"
-                onAction="#stopCheckAllChains" prefHeight="30.0" prefWidth="120.0" text="终止爆破"/>
-        <Label fx:id="proxyStatusLabel" alignment="CENTER_RIGHT" layoutX="653.0" layoutY="1.0" prefHeight="30.0"
-               prefWidth="370.0" textFill="#c92222">
+        <ChoiceBox fx:id="echoChoiceBox" layoutX="436.0" layoutY="305.0" prefHeight="30.0" prefWidth="143.0" />
+        <CheckBox fx:id="AES_GCM_ModeCheckBox" layoutX="433.0" layoutY="272.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="137.0" text="AES-GCM模式" />
+        <Button fx:id="enumAllChainsBtn" layoutX="779.0" layoutY="305.0" mnemonicParsing="false" onAction="#checkAllChains" prefHeight="30.0" prefWidth="135.0" text="爆破利用链" />
+        <Button fx:id="CheckCurrentChainBtn" layoutX="612.0" layoutY="305.0" mnemonicParsing="false" onAction="#checkChain" prefHeight="30.0" prefWidth="140.0" text="检测当前利用链" />
+        <CheckBox fx:id="httpsReqCheckBox" disable="true" layoutX="1007.0" layoutY="48.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="74.0" text="https" />
+        <CheckBox fx:id="keepCookieCheckBox" disable="true" layoutX="889.0" layoutY="48.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="113.0" selected="true" text="保留Cookie" />
+        <Button fx:id="stopCheckAllKeysBtn" layoutX="940.0" layoutY="267.0" mnemonicParsing="false" onAction="#stopCheckAllKeys" prefHeight="30.0" prefWidth="135.0" text="终止爆破" />
+        <Button fx:id="stopCheckAllChainsBtn" layoutX="940.0" layoutY="305.0" mnemonicParsing="false" onAction="#stopCheckAllChains" prefHeight="30.0" prefWidth="135.0" text="终止爆破" />
+        <Label fx:id="proxyStatusLabel" alignment="CENTER_RIGHT" layoutX="746.0" layoutY="1.0" prefHeight="30.0" prefWidth="370.0" textFill="#c92222">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
     </children>
